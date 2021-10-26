@@ -38,3 +38,8 @@
 
 - [Micronaut Hikari JDBC Connection Pool documentation](https://micronaut-projects.github.io/micronaut-sql/latest/guide/index.html#jdbc)
 
+===
+
+/beans— Informações sobre os beans já carregados /info— Informações estáticas da aplicação providas ao implementar um bean para InfoSource /health — Disponibilidade da aplicação /metrics — Metricas (disponibilizado pelo Micrometer) /refresh — Recarrega Beans ( @Refreshable ) /routes — Informações de rotas disponíveis /loggers — Informações sobre log.
+
+#Chamadas OpenAPI http://localhost:8100/redoc http://localhost:8100/rapidoc#get-/persons1 http://localhost:8100/swagger-ui#/ http://localhost:8100/swagger/demo-swagger-data-0.0.yml

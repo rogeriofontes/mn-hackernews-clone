@@ -36,7 +36,8 @@ public class SignUpController {
 
         Optional<UserDto> existingUser = userService.findUser(userDto.getUsername());
 
+        UserDto user = userService.createUser(userDto);
         return Single.just(existingUser.map(HttpResponse::badRequest)
-                .orElse(HttpResponse.ok(userService.createUser(userDto))));
+                .orElse(HttpResponse.ok(user)));
     }
 }
