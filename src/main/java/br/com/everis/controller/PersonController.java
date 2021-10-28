@@ -6,13 +6,11 @@ import br.com.everis.repository.PersonRepository;
 import br.com.everis.service.PersonService;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.version.annotation.Version;
+import io.micronaut.data.model.Pageable;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.validation.Validated;
@@ -139,6 +137,22 @@ public class PersonController {
         return Single.just(personRepository.findAll());
     }
 
+    @Get("/pagination{?page,age}")
+    public List<Person> volumeFilterPagination(@QueryValue Optional<Integer> page,
+                                                 @QueryValue int age) {
+        var myPage = page.isEmpty() ? 0 : page.get();
+        return personRepository.findByAgeGreaterThan(age, Pageable.from(myPage, 5));
+    }
+
+    @Get("/pagination{?page,size}")
+    public List<Person> allWithPaginationSize(@QueryValue int page, @QueryValue int size) {
+        return personRepository.list(Pageable.from(page, size)).getContent();
+    }
+
+    @Get("/pagination/{page}")
+    public List<Person> allWithPagination(@PathVariable int page) {
+        return personRepository.list(Pageable.from(page, 5)).getContent();
+    }
 }
 
 
