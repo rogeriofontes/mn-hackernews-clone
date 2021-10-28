@@ -17,4 +17,3 @@ public interface PersonRepository extends CrudRepository<Person, Long>  {
 
     Optional<Person> findByAgeGreaterThan(int age);
  }
-//https://piotrminkowski.com/2019/07/25/jpa-data-access-with-micronaut-predator/
