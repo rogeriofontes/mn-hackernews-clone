@@ -136,7 +136,7 @@ public class PersonController {
 
     @Get("/peaple")
     public Single<List<Person>> getPersons() {
-        return Single.just(getPeople());
+        return Single.just(personRepository.findAll());
     }
 
 }

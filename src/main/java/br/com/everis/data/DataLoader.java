@@ -1,4 +1,4 @@
-package br.com.everis.data;
+/*package br.com.everis.data;
 
 import br.com.everis.model.domain.User;
 import br.com.everis.repository.UserRepository;
@@ -29,4 +29,4 @@ public class DataLoader implements ApplicationEventListener<ServerStartupEvent> 
 
         log.info("Demo data added : "+users.size()+" users");
     }
-}
+}*/

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Introspected
 @NoArgsConstructor
@@ -17,7 +18,8 @@ import javax.persistence.Id;
 @Builder
 @Data
 @Entity
-@Schema(name="Person", description = "Represents an Person Entity")
+@Table(name = "tb_user")
+@Schema(name="User", description = "Represents an User Entity")
 public class User {
 
     public static final String DEFAULT_ROLE = "VIEW";

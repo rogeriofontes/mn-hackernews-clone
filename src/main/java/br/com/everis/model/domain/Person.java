@@ -4,10 +4,7 @@ import io.micronaut.core.annotation.Introspected;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
@@ -19,6 +16,7 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode
 @ToString
 @Entity
+@Table(name = "tb_person")
 @Schema(name="Person", description = "Represents an Person Entity")
 public class Person {
 
