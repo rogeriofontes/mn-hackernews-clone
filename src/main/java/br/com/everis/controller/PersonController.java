@@ -83,7 +83,7 @@ public class PersonController {
                     @ApiResponse(description = "Entity not found", responseCode = "404")
             })
     public List<Person> findAll(@Nullable Integer max, @Nullable Integer offset) {
-        return getPeople().stream()
+        return personRepository.findAll().stream()
                 .skip(offset == null ? 0 : offset)
                 .limit(max == null ? 10000 : max)
                 .collect(Collectors.toList());
@@ -98,18 +98,18 @@ public class PersonController {
                     @ApiResponse(description = "Entity not found", responseCode = "404")
             })
     public List<Person> findAllV2(@NotNull Integer max, @NotNull Integer offset) {
-        return getPeople().stream()
+        return personRepository.findAll().stream()
                 .skip(offset == null ? 0 : offset)
                 .limit(max == null ? 10000 : max)
                 .collect(Collectors.toList());
     }
 
-    private List<Person> getPeople() {
+    /*private List<Person> getPeople() {
         Iterable<Person> all = personRepository.findAll();
         List<Person> persons = new ArrayList<>();
         all.iterator().forEachRemaining(persons::add);
         return persons;
-    }
+    }*/
 
     /*@Get()
     public HttpResponse<?> getPersons() {
@@ -119,7 +119,7 @@ public class PersonController {
 
     @Get("/{id}")
     @Operation(summary = "Save/Update Entity", description = "From the given id, creates an entity with specified id, " +
-            "otherwise it overwrites the existing entity with new information",tags = "Entity",
+            "otherwise it overwrites the existing entity with new information", tags = "Entity",
             responses = {
                     @ApiResponse(description = "Response status indicating if entity was created", responseCode = "200", content = @Content(
                             array = @ArraySchema(schema = @Schema(implementation = Person.class)))),
@@ -138,20 +138,21 @@ public class PersonController {
     }
 
     @Get("/pagination{?page,age}")
-    public List<Person> volumeFilterPagination(@QueryValue Optional<Integer> page,
-                                                 @QueryValue int age) {
+    public List<Person> allWithPaginator2(@QueryValue Optional<Integer> page, @Nullable @QueryValue int age) {
         var myPage = page.isEmpty() ? 0 : page.get();
         return personRepository.findByAgeGreaterThan(age, Pageable.from(myPage, 5));
     }
 
     @Get("/pagination{?page,size}")
-    public List<Person> allWithPaginationSize(@QueryValue int page, @QueryValue int size) {
-        return personRepository.list(Pageable.from(page, size)).getContent();
+    public List<Person> allWithPaginator1(@QueryValue Optional<Integer> page, @QueryValue Optional<Integer> size) {
+        var myPage = page.isEmpty() ? 0 : page.get();
+        var mySite = size.isEmpty() ? 0 : size.get();
+        return personRepository.list(Pageable.from(myPage, mySite)).getContent();
     }
 
     @Get("/pagination/{page}")
-    public List<Person> allWithPagination(@PathVariable int page) {
-        return personRepository.list(Pageable.from(page, 5)).getContent();
+    public List<Person> allWithPaginator(@PathVariable int page) {
+        return personRepository.list(Pageable.from(page, 10)).getContent();
     }
 }
 
